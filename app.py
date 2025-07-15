@@ -6,9 +6,20 @@ import pandas as pd
 import re
 from datetime import datetime
 import google.generativeai as genai
+from google.cloud import secretmanager
+
+
+def get_gemini_api_key():
+    client = secretmanager.SecretManagerServiceClient()
+    project_id = os.getenv("GOOGLE_CLOUD_PROJECT")
+    secret_name = "gemini-api-key"
+    name = f"projects/{project_id}/secrets/{secret_name}/versions/latest"
+    response = client.access_secret_version(request={"name": name})
+    return response.payload.data.decode("UTF-8")
 
 # Configure Gemini API key
-genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+# genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+genai.configure(api_key=get_gemini_api_key())
 
 # Generate function using latest API
 def generate(text):
@@ -16,6 +27,11 @@ def generate(text):
     response = model.generate_content(text)
 
     return response.text  # response.text automatically gives full output
+
+
+##############
+##############
+
 
 # --- File Text Extraction ---
 def extract_text_from_pdf(file):
