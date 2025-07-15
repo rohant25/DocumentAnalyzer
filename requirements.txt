@@ -1,0 +1,6 @@
+streamlit
+pymupdf
+python-docx
+pandas
+openpyxl
+google-generativeai>=0.4.0
