@@ -76,7 +76,7 @@ def parse_llm_output(output, filename):
     return errors
 
 # --- Streamlit UI ---
-st.title("📄Document Error Detector (Gemini LLM)")
+st.title("📄Document Error Detector using (Gemini LLM)")
 st.write("Upload `.pdf`, `.docx`, or `.txt` files to analyze for common errors using LLM.")
 
 uploaded_files = st.file_uploader("Upload Documents", type=["pdf", "docx", "txt"], accept_multiple_files=True)
