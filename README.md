@@ -1,1 +1,1 @@
-"DocumentAnalyzer using LLM" 
+"DocumentAnalyzer using Gemini LLM" 
