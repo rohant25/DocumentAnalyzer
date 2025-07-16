@@ -7,11 +7,14 @@ import re
 from datetime import datetime
 import google.generativeai as genai
 from google.cloud import secretmanager
+from google.auth import default
 
+def get_project_id():
+    return os.environ.get("GOOGLE_CLOUD_PROJECT") or default()[1]
 
 def get_gemini_api_key():
     client = secretmanager.SecretManagerServiceClient()
-    project_id = os.getenv("GOOGLE_CLOUD_PROJECT")
+    project_id = get_project_id()
     secret_name = "gemini-api-key"
     name = f"projects/{project_id}/secrets/{secret_name}/versions/latest"
     response = client.access_secret_version(request={"name": name})
